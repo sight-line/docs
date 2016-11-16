@@ -6,15 +6,17 @@
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="logo">
-            <g id="SL_icon">
-                <rect id="Rectangle-path" fill="#FFE400" x="0" y="0" width="183.344571" height="183.344571"></rect>
-                <rect id="Rectangle-path" fill="#FF0000" x="91.6722855" y="0" width="91.6722855" height="91.6722855"></rect>
-                <rect id="Rectangle-path" fill="#FFFFFF" x="0" y="0" width="91.6722855" height="91.6722855"></rect>
-                <polygon id="Shape" fill="#000000" points="12.3338807 183.115103 91.7870192 107.907114 171.498309 183.344571"></polygon>
-            </g>
             <text id="Sight-Line" font-family="TransportD-Medium, Transport D" font-size="100" font-weight="400" fill="#000000">
-                <tspan x="235" y="116">Sight Line</tspan>
+                <tspan x="224" y="116">Sight Line</tspan>
             </text>
+            <g id="SL_icon" transform="translate(15.000000, 9.000000)">
+                <g>
+                    <rect id="Rectangle-path" fill="#FFE400" x="0" y="0" width="164.93753" height="164.93753"></rect>
+                    <rect id="Rectangle-path" fill="#FF0000" x="82.4687649" y="0" width="82.4687649" height="82.4687649"></rect>
+                    <rect id="Rectangle-path" fill="#FFFFFF" x="0" y="0" width="82.4687649" height="82.4687649"></rect>
+                    <polygon id="Shape" fill="#000000" points="11.0956098 164.7311 82.5719799 97.0736839 154.280584 164.93753"></polygon>
+                </g>
+            </g>
         </g>
     </g>
 </svg>
