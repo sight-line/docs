@@ -1,5 +1,5 @@
 # Sight Line API Docs
 
-Repo for the [Sight Line API documentation](https://sight-line.uk/docs).
+Repo for the [Sight Line API documentation](https://docs.sight-line.uk).
 
-Generate with [Slate](https://github.com/lord/slate/).
+Generated with [Slate](https://github.com/lord/slate/).
