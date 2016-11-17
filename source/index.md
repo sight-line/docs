@@ -8,7 +8,6 @@ includes:
   - authentication
   - site
   - sign
-  - report
 
 search: true
 ---
