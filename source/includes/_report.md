@@ -19,6 +19,8 @@ $ http POST "https://api.sight-line.uk/sites/report/" \
 ```
 Flags a specific Site as having erroneous data.
 
+##### Request arguments
+
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
 `site`<br><span class="label notice">Required</span>|The uuid of the Site.
