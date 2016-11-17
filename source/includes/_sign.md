@@ -69,12 +69,12 @@ Returns information about a specific Sign.
 ```shell
 $ http --form POST "https://api.sight-line.uk/sites/sign/" \
     "Authorization: Token $auth_token" \
-    "device_id=$device_id" \
-    "major_id=$major_id" \
-    "minor_id=$minor_id" \
-    "latitude=$latitude" \
-    "longitude=$longitude" \
-    "sign_type=$sign_type" 
+    "device_id=1" \
+    "major_id=1" \
+    "minor_id=1" \
+    "latitude=51.5347709" \
+    "longitude=-0.1440306" \
+    "sign_type=LEFT" 
 ```
 ```json
 {
@@ -125,12 +125,12 @@ The combination of Device, Major and Minor ID's must be unique otherwise they wi
 ```shell
 $ http --form PATCH "https://api.sight-line.uk/sites/sign/$sign_uuid" \
     "Authorization: Token $auth_token" \
-    "device_id=$device_id" \
-    "major_id=$major_id" \
-    "minor_id=$minor_id" \
-    "latitude=$latitude" \
-    "longitude=$longitude" \
-    "sign_type=$sign_type" 
+    "device_id=1" \
+    "major_id=2" \
+    "minor_id=1" \
+    "latitude=51.5347709" \
+    "longitude=-0.1440306" \
+    "sign_type=LEFT" 
 ```
 ```json
 {
@@ -138,7 +138,7 @@ $ http --form PATCH "https://api.sight-line.uk/sites/sign/$sign_uuid" \
     "owner_uuid": "60fe3539-056a-4333-912f-cae8ed206388",
     "owner_email": "streetworks@streetworks.info",
     "device_id": 1,
-    "major_id": 1,
+    "major_id": 2,
     "minor_id": 1,
     "latitude": 51.5347709,
     "longitude": -0.1440306,
@@ -190,8 +190,6 @@ Deletes a specified Sign.
 <br><span class="label notice">WARNING: This will delete the associated Site.</span>
 
 ##### Request arguments
-
-Deletes a specified Sign.
 
 <span class="hide">Parameter</span> | <span class="hide">Description</span>
 ------------------------------------|--------------------------------------
