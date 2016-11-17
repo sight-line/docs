@@ -36,21 +36,6 @@ $ http "https://api.sight-line.uk/sites/" \
         "sign_type": "RIGHT"
     },
     ...
-    "owner_uuid": "60fe3539-056a-4333-912f-cae8ed206388",
-    "owner_email": "streetworks@streetworks.info",
-    "latitude": 51.5507863,
-    "longitude": -0.09123755,
-    "address": "45 Vyner St, Bethnal Green",
-    "layout": {
-        "display": "Temporary footway in road",
-        "value": "TFIR"
-    },
-    "length": {
-        "display": "5 to 10 metres",
-        "value": "FIVE_TO_TEN"
-    },
-    "occupation_end_date": "2016-08-19",
-    "notes": "Faulty light",
     "active": true,
     "source": "streetworks"
 }

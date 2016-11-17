@@ -7,8 +7,10 @@ language_tabs:
 includes:
   - authentication
   - site
+  - sign
+  - report
 
-search: false
+search: true
 ---
 
 # Introduction
