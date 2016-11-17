@@ -74,7 +74,7 @@ $ http --form POST "https://api.sight-line.uk/sites/sign/" \
     "minor_id=$minor_id" \
     "latitude=$latitude" \
     "longitude=$longitude" \
-    "sign_type=$sign_type" \
+    "sign_type=$sign_type" 
 ```
 ```json
 {
@@ -123,14 +123,14 @@ The combination of Device, Major and Minor ID's must be unique otherwise they wi
 ## Update a Sign
 
 ```shell
-$ http PATCH "https://api.sight-line.uk/sites/sign/$sign_uuid" \
+$ http --form PATCH "https://api.sight-line.uk/sites/sign/$sign_uuid" \
     "Authorization: Token $auth_token" \
     "device_id=$device_id" \
     "major_id=$major_id" \
     "minor_id=$minor_id" \
     "latitude=$latitude" \
     "longitude=$longitude" \
-    "sign_type=$sign_type" \
+    "sign_type=$sign_type" 
 ```
 ```json
 {
