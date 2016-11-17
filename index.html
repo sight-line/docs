@@ -13,7 +13,7 @@
     <link href="stylesheets/screen-4252d4e4.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print-32bbdc25.css" rel="stylesheet" type="text/css" media="print" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-      <script src="javascripts/all_nosearch-a0d041e4.js" type="text/javascript"></script>
+      <script src="javascripts/all-3e0db440.js" type="text/javascript"></script>
 
       <script>
         $(function() {
@@ -34,6 +34,10 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
         </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
       <div id="toc">
       </div>
     </div>
@@ -58,16 +62,765 @@
 
 <p>The Sight Line API uses Token Authentication.</p>
 
-<p>Auth Tokens are granted on request. Please visit <a href="https://sight-line.uk/api">here</a> to request a token.</p>
+<h2 id="acquiring-a-authentication-token">Acquiring a Authentication Token</h2>
 
-          <h1 id="site">Site</h1>
+<p>Authentication Tokens are granted on request. </p>
 
-<p>Read and write information about a site.</p>
+<p>Please visit <a href="https://sight-line.uk/api">here</a> to request a token.</p>
 
-<h2 id="get-site">Get site</h2>
+<p>You will need to register the following details:</p>
+
+<ul>
+<li>Email</li>
+<li>Organisation</li>
+<li>Address</li>
+<li>Telephone</li>
+</ul>
+
+<h2 id="authenticating-requests">Authenticating Requests</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.sight-line.uk/sites/"</span> <span class="se">\</span>
     <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span>
 </code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b07e9578-24e5-47de-8c56-ed82508f9ed2"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"first_sign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1cbf7316-6ed3-4cbe-a9d7-27a7c9b04e66"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5349945</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.0552559</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RIGHT"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p><strong>All</strong> requests must be authenticated with an access token supplied in the <code class="prettyprint">Authorization</code> header using the <code class="prettyprint">Token</code> scheme. </p>
+
+<p>Clients may only have <em>one</em> active access token at a time, per user. </p>
+
+<p>Acquiring a new access token will invalidate any other token you own for that user.</p>
+
+          <h1 id="site">Site</h1>
+
+<p>Read and write information about site(s) you own.</p>
+
+<h2 id="get-list-of-sites">Get list of Sites</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.sight-line.uk/sites/"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b07e9578-24e5-47de-8c56-ed82508f9ed2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"first_sign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1cbf7316-6ed3-4cbe-a9d7-27a7c9b04e66"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5349945</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.0552559</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RIGHT"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"second_sign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c643db34-6875-49fc-a579-8010b6e52169"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5665781</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.1272192</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RIGHT"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"third_sign"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fourth_sign"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5507863</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.09123755</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45 Vyner St, Bethnal Green"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"layout"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Temporary footway in road"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TFIR"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"length"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5 to 10 metres"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FIVE_TO_TEN"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"occupation_end_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-19"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cd54227c-664c-4631-bc19-d42a0440b5f7"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"first_sign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e01c6991-32ab-4b84-850b-9cca9d6f1490"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5347709</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.1440306</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LEFT"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+        </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Returns list of Sites you own.</p>
+
+<h2 id="get-site">Get Site</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.sight-line.uk/sites/</span><span class="nv">$site_uuid</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span> 
+</code></pre>
+<pre class="highlight json"><code><span class="w">    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b07e9578-24e5-47de-8c56-ed82508f9ed2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"first_sign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1cbf7316-6ed3-4cbe-a9d7-27a7c9b04e66"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5349945</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.0552559</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RIGHT"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"second_sign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c643db34-6875-49fc-a579-8010b6e52169"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5665781</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.1272192</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RIGHT"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"third_sign"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fourth_sign"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5507863</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.09123755</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45 Vyner St, Bethnal Green"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"layout"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Temporary footway in road"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TFIR"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"length"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5 to 10 metres"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FIVE_TO_TEN"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"occupation_end_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-19"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Returns information about a specific Site.</p>
+
+<h5 id="request-arguments">Request arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">site_uuid</code><br><span class="label notice">Required</span></td>
+<td>The uuid of the Site.</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-site">Create a Site</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.sight-line.uk/sites/</span><span class="nv">$site_uuid</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span> 
+</code></pre>
+<pre class="highlight json"><code><span class="w">    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b07e9578-24e5-47de-8c56-ed82508f9ed2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"first_sign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1cbf7316-6ed3-4cbe-a9d7-27a7c9b04e66"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5349945</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.0552559</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RIGHT"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"second_sign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c643db34-6875-49fc-a579-8010b6e52169"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5665781</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.1272192</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RIGHT"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"third_sign"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fourth_sign"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5507863</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.09123755</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45 Vyner St, Bethnal Green"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"layout"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Temporary footway in road"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TFIR"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"length"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5 to 10 metres"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FIVE_TO_TEN"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"occupation_end_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-19"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Creates a Site.</p>
+
+<p>Pre-existing Signs attached to this Site will be re-associated to this Site.</p>
+
+<h2 id="update-site">Update Site</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.sight-line.uk/sites/</span><span class="nv">$site_uuid</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span> 
+
+
+</code></pre>
+<pre class="highlight json"><code><span class="w">    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b07e9578-24e5-47de-8c56-ed82508f9ed2"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"first_sign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1cbf7316-6ed3-4cbe-a9d7-27a7c9b04e66"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5349945</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.0552559</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RIGHT"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"second_sign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c643db34-6875-49fc-a579-8010b6e52169"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5665781</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.1272192</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RIGHT"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"third_sign"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"fourth_sign"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5507863</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.09123755</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45 Vyner St, Bethnal Green"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"layout"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Temporary footway in road"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TFIR"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"length"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5 to 10 metres"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FIVE_TO_TEN"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"occupation_end_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-19"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Update a Site.</p>
+
+<p>Pre-existing Signs attached to this Site will be re-associated to this Site.</p>
+
+<h2 id="delete-a-site">Delete a Site</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http DELETE <span class="s2">"https://api.sight-line.uk/sites/</span><span class="nv">$site_uuid</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight plaintext"><code>STATUS: HTTP 204 No Content
+</code></pre>
+
+<p>Delete a specific site.
+<br><span class="label notice">WARNING: This will delete all associated Signs.</span></p>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">site_uuid</code><br><span class="label notice">Required</span></td>
+<td>The uuid of the Site.</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-site-length-choices">Get Site Length choices</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.sight-line.uk/sites/length-choices/"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"LESS_THAN_FIVE"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Less than 5 metres"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"FIVE_TO_TEN"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"5 to 10 metres"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"TEN_TO_TWENTY"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"10 to 20 metres"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"GREATER_THAN_TWENTY"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"More than 20 metres"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Returns a list of Site Length choices to use when creating/updating a Site.
+The first value of each item is the <code class="prettyprint">API value</code> and the second is the <code class="prettyprint">Display value</code>.</p>
+
+<h2 id="get-site-layout-choices">Get Site Layout choices</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.sight-line.uk/sites/layout-choices/"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"NFO"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"No footway obstruction"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"FC"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Footway closed"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"PFO"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Partial footway obstruction"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"TFIR"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Temporary footway in road"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Returns a list of Site Layout choices to use when creating/updating a Site.
+The first value of each item is the <code class="prettyprint">API value</code> and the second is the <code class="prettyprint">Display value</code>.</p>
+
+          <h1 id="sign">Sign</h1>
+
+<h2 id="get-list-of-signs">Get list of Signs</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.sight-line.uk/sites/sign/"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c643db34-6875-49fc-a579-8010b6e52169"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5665781</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.1272192</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RIGHT"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e01c6991-32ab-4b84-850b-9cca9d6f1490"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5347709</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.1440306</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LEFT"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Returns list of Signs you own.</p>
+
+<h2 id="get-a-sign">Get a Sign</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.sight-line.uk/sites/sign/</span><span class="nv">$sign_uuid</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span>  
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1cbf7316-6ed3-4cbe-a9d7-27a7c9b04e66"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5349945</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.0552559</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RIGHT"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Returns information about a specific Sign.</p>
+
+<h5 id="request-arguments">Request arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">sign_uuid</code><br><span class="label notice">Required</span></td>
+<td>The uuid of the Sign.</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-a-sign">Create a Sign</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.sight-line.uk/sites/sign/"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"device_id=</span><span class="nv">$device_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"major_id=</span><span class="nv">$major_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"minor_id=</span><span class="nv">$minor_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"latitude=</span><span class="nv">$latitude</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"longitude=</span><span class="nv">$longitude</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"sign_type=</span><span class="nv">$sign_type</span><span class="s2">"</span> 
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e01c6991-32ab-4b84-850b-9cca9d6f1490"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5347709</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.1440306</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LEFT"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Creates a specified Sign.</p>
+
+<p>The combination of Device, Major and Minor ID&rsquo;s must be unique otherwise they will replace an existing Sign.</p>
+
+<h5 id="request-arguments">Request arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">device_id</code><br><span class="label notice">Required</span></td>
+<td>Device ID (Integer)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">major_id</code><br><span class="label notice">Required</span></td>
+<td>Major ID (Integer)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">minor_id</code><br><span class="label notice">Required</span></td>
+<td>Minor ID (Integer)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">latitude</code><br><span class="label notice">Required</span></td>
+<td>Latitude (Float)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">longitude</code><br><span class="label notice">Required</span></td>
+<td>Longitude (Float)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">sign_type</code><br><span class="label notice">Required</span></td>
+<td>Sign Type of the sign. See <a href="#get-sign-types-choices"><strong>Sign Type choices</strong></a></td>
+</tr>
+</tbody></table>
+
+<h5 id="response-arguments">Response arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">uuid</code></td>
+<td>Sign&rsquo;s uuid</td>
+</tr>
+<tr>
+<td><code class="prettyprint">owner_uuid</code></td>
+<td>Sign owner&rsquo;s uuid</td>
+</tr>
+<tr>
+<td><code class="prettyprint">owner_email</code></td>
+<td>Sign owner&rsquo;s email</td>
+</tr>
+<tr>
+<td><code class="prettyprint">device_id</code></td>
+<td>Device ID (Integer)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">major_id</code></td>
+<td>Major ID (Integer)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">minor_id</code></td>
+<td>Minor ID (Integer)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">latitude</code></td>
+<td>Latitude (Float)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">longitude</code></td>
+<td>Longitude (Float)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">sign_type</code></td>
+<td>Sign Type of the sign. See <a href="#get-sign-types-choices"><strong>Sign Type choices</strong></a></td>
+</tr>
+</tbody></table>
+
+<h2 id="update-a-sign">Update a Sign</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http --form PATCH <span class="s2">"https://api.sight-line.uk/sites/sign/</span><span class="nv">$sign_uuid</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"device_id=</span><span class="nv">$device_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"major_id=</span><span class="nv">$major_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"minor_id=</span><span class="nv">$minor_id</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"latitude=</span><span class="nv">$latitude</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"longitude=</span><span class="nv">$longitude</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"sign_type=</span><span class="nv">$sign_type</span><span class="s2">"</span> 
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e01c6991-32ab-4b84-850b-9cca9d6f1490"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"owner_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60fe3539-056a-4333-912f-cae8ed206388"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"owner_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"streetworks@streetworks.info"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"device_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"major_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"minor_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5347709</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-0.1440306</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"sign_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LEFT"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Updates specified Sign. If successful, will return the updated Sign reponse.</p>
+
+<p>The combination of Device, Major and Minor ID&rsquo;s must be unique otherwise they will replace an existing Sign.</p>
+
+<h5 id="request-arguments">Request arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">sign_uuid</code><br><span class="label">Optional</span></td>
+<td>Sign&rsquo;s uuid</td>
+</tr>
+<tr>
+<td><code class="prettyprint">device_id</code><br><span class="label">Optional</span></td>
+<td>Device ID (Integer)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">major_id</code><br><span class="label">Optional</span></td>
+<td>Major ID (Integer)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">minor_id</code><br><span class="label">Optional</span></td>
+<td>Minor ID (Integer)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">latitude</code><br><span class="label">Optional</span></td>
+<td>Latitude (Float)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">longitude</code><br><span class="label">Optional</span></td>
+<td>Longitude (Float)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">sign_type</code><br><span class="label">Optional</span></td>
+<td>Sign Type of the sign. See <a href="#get-sign-types-choices"><strong>Sign Type choices</strong></a></td>
+</tr>
+</tbody></table>
+
+<h5 id="response-arguments">Response arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">uuid</code></td>
+<td>Sign&rsquo;s uuid</td>
+</tr>
+<tr>
+<td><code class="prettyprint">owner_uuid</code></td>
+<td>Sign owner&rsquo;s uuid</td>
+</tr>
+<tr>
+<td><code class="prettyprint">owner_email</code></td>
+<td>Sign owner&rsquo;s email</td>
+</tr>
+<tr>
+<td><code class="prettyprint">device_id</code></td>
+<td>Device ID (Integer)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">major_id</code></td>
+<td>Major ID (Integer)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">minor_id</code></td>
+<td>Minor ID (Integer)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">latitude</code></td>
+<td>Latitude (Float)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">longitude</code></td>
+<td>Longitude (Float)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">sign_type</code></td>
+<td>Sign Type of the sign. See <a href="#get-sign-types-choices"><strong>Sign Type choices</strong></a></td>
+</tr>
+</tbody></table>
+
+<h2 id="delete-sign">Delete Sign</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http DELETE <span class="s2">"https://api.sight-line.uk/sites/sign/</span><span class="nv">$sign_uuid</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight plaintext"><code>STATUS: HTTP 204 No Content
+</code></pre>
+
+<p>Deletes a specified Sign.
+<br><span class="label notice">WARNING: This will delete the associated Site.</span></p>
+
+<h5 id="request-arguments">Request arguments</h5>
+
+<p>Deletes a specified Sign.</p>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">sign_uuid</code><br><span class="label notice">Required</span></td>
+<td>The uuid of the Sign.</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-sign-types-choices">Get Sign Types choices</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.sight-line.uk/sites/type-choices/"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"LEFT"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Left"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"RIGHT"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Right"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"CROSS"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Cross"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"BARRIER"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Barrier"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>Returns a list of Sign Type choices to use when creating/updating a Sign.
+The first value of each item is the <code class="prettyprint">API value</code> and the second is the <code class="prettyprint">Display value</code>.</p>
+
+          <h1 id="report">Report</h1>
+
+<p>Errors with specific Sites can be reported.</p>
+
+<p>Authentication is <strong>NOT</strong> required for this API.</p>
+
+<h2 id="report-a-specific-site">Report a specific site</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>http POST <span class="s2">"https://api.sight-line.uk/sites/report/"</span> <span class="se">\</span>
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="s2">"site==</span><span class="nv">$site_uuid</span><span class="s2">"</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"91d3536e-bb5b-4b8b-9dec-4fae3a35528e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"site"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cd54227c-664c-4631-bc19-d42a0440b5f7"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Flags a specific Site as having erroneous data.</p>
+
+<h5 id="request-arguments">Request arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">site</code><br><span class="label notice">Required</span></td>
+<td>The uuid of the Site.</td>
+</tr>
+</tbody></table>
+
+<h5 id="response-arguments">Response arguments</h5>
+
+<table><thead>
+<tr>
+<th><span class="hide">Parameter</span></th>
+<th><span class="hide">Description</span></th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">uuid</code></td>
+<td>The report&rsquo;s uuid.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">site</code></td>
+<td>The specified site&rsquo;s uuid.</td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">
