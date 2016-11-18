@@ -6,9 +6,7 @@ The Sight Line API uses Token Authentication.
 
 Authentication Tokens are granted on request. 
 
-Please visit [here](https://sight-line.uk/api) to request a token.
-
-You will need to register the following details:
+Please email sightline [at] rossatkin [dot] com with a brief explanation of the reason for your request along with the following details:
 
 * Email
 * Organisation
