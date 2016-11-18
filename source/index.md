@@ -26,4 +26,4 @@ https://api.sight-line.uk
 
 The Sight Line API enables third party data providers to share roads works information. Data providers are responsible for all data and ensuring it is up-to-date.
 
-Once written, information is immediately fetchable by the [Sight Line mobile app](https://www.sight-line.uk).
+Once written, information is immediately fetchable by the [Sight Line mobile app](http://www.sight-line.uk).
