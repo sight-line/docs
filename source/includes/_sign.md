@@ -216,8 +216,8 @@ $ http "https://api.sight-line.uk/sites/type-choices/" \
         "Cross"
     ],
     [
-        "BARRIER",
-        "Barrier"
+        "ADVANCED",
+        "Advanced"
     ]
 ]
 ```
