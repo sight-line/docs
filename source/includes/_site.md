@@ -80,7 +80,7 @@ Returns list of Sites you own.
 
 ```shell
 $ http "https://api.sight-line.uk/sites/$site_uuid" \
-    "Authorization: Token $auth_token" 
+    "Authorization: Token $auth_token"
 ```
 ```json
     {
@@ -148,11 +148,11 @@ $ http --form POST "https://api.sight-line.uk/sites" \
     "layout=TFIR" \
     "occupation_end_date=2016-08-19" \
     "notes=Faulty lighting" \
-    "entrances:='["Vehicle access", "Boots", "McDonald's"]'" \
+    "entrances:='["Vehicle access", "Boots"]'" \
     "source=streetworks" \
     "active=true" \
     "first_sign:='{"device_id": 1, "major_id": 2, "minor_id": 1, "latitude": 51.5349945, "longitude": -0.0552559, "sign_type": "RIGHT"}'" \
-    "second_sign:='{"device_id": 1, "major_id": 2, "minor_id": 2, "latitude": 51.5665781, "longitude": -0.1272192, "sign_type": "LEFT"}'" 
+    "second_sign:='{"device_id": 1, "major_id": 2, "minor_id": 2, "latitude": 51.5665781, "longitude": -0.1272192, "sign_type": "LEFT"}'"
 ```
 ```json
     {
@@ -249,7 +249,7 @@ Pre-existing Signs attached to this Site will be re-associated to this Site.
 
 ```shell
 $ http --form POST "https://api.sight-line.uk/sites/$site_uuid" \
-    "Authorization: Token $auth_token" 
+    "Authorization: Token $auth_token"
 
 ```
 ```json
