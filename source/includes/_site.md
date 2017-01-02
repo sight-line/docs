@@ -51,6 +51,7 @@ $ http "https://api.sight-line.uk/sites/" \
         },
         "occupation_end_date": "2016-08-19",
         "notes": "",
+        "entrances": ["Vehicle access", "Boots", "McDonald's"],
         "active": true,
         "source": "streetworks"
     },
@@ -123,6 +124,7 @@ $ http "https://api.sight-line.uk/sites/$site_uuid" \
         },
         "occupation_end_date": "2016-08-19",
         "notes": "",
+        "entrances": ["Vehicle access", "Boots", "McDonald's"],
         "active": true,
         "source": "streetworks"
     }
@@ -146,6 +148,7 @@ $ http --form POST "https://api.sight-line.uk/sites" \
     "layout=TFIR" \
     "occupation_end_date=2016-08-19" \
     "notes=Faulty lighting" \
+    "entrances:='["Vehicle access", "Boots", "McDonald's"]'" \
     "source=streetworks" \
     "active=true" \
     "first_sign:='{"device_id": 1, "major_id": 2, "minor_id": 1, "latitude": 51.5349945, "longitude": -0.0552559, "sign_type": "RIGHT"}'" \
@@ -193,6 +196,7 @@ $ http --form POST "https://api.sight-line.uk/sites" \
         },
         "occupation_end_date": "2016-08-19",
         "notes": "Faulty lighting",
+        "entrances": ["Vehicle access", "Boots", "McDonald's"],
         "active": true,
         "source": "streetworks"
     }
@@ -211,6 +215,7 @@ Pre-existing Signs attached to this Site will be re-associated to this Site.
 `occupation_end_date`<br><span class="label">Required</span>|When the Site should no longer be present. (Date in format `YYYY-MM-DD`)
 `address`<br><span class="label">Optional</span>|Site's address (String)
 `notes`<br><span class="label">Optional</span>|Additional notes (String)
+`entrances`<br><span class="label">Optional</span>|List of entrances along the path from Right Sign to Left sign (Array of Strings)
 `source`<br><span class="label">Optional</span>|Free form field to identify unique source data such as engineer's name or gang name (String)
 `active`<br><span class="label">Optional</span>|If site is active or not (Boolean)
 `first_sign`<br><span class="label">Optional</span>|Sign object. See [**Sign**](#sign)
@@ -230,6 +235,7 @@ Pre-existing Signs attached to this Site will be re-associated to this Site.
 `occupation_end_date`|When the Site should no longer be present. (Date in format `YYYY-MM-DD`)
 `address`|Site address
 `notes`|Additional notes (String)
+`entrances`|List of entrances along the path from Right Sign to Left sign (Array of Strings)
 `source`|Free form field to identify unique source data such as engineer's name or gang name (String)
 `active`|Site's active value (Boolean)
 `latitude`|Latitude mid-point calculated using sign 1 and sign 2. Null if less than 2 signs. (Float)
@@ -288,6 +294,7 @@ $ http --form POST "https://api.sight-line.uk/sites/$site_uuid" \
         },
         "occupation_end_date": "2016-08-19",
         "notes": "",
+        "entrances": ["Vehicle access", "Boots", "McDonald's"],
         "active": true,
         "source": "streetworks"
     }
@@ -307,6 +314,7 @@ Pre-existing Signs attached to this Site will be re-associated to this Site.
 `occupation_end_date`<br><span class="label">Required</span>|When the Site should no longer be present. (Date in format `YYYY-MM-DD`)
 `address`<br><span class="label">Optional</span>|Site's address (String)
 `notes`<br><span class="label">Optional</span>|Additional notes (String)
+`entrances`<br><span class="label">Optional</span>|List of entrances along the path from Right Sign to Left sign (Array of Strings)
 `source`<br><span class="label">Optional</span>|Free form field to identify unique source data such as engineer's name or gang name (String)
 `active`<br><span class="label">Optional</span>|If site is active or not (Boolean)
 `first_sign`<br><span class="label">Optional</span>|Sign object. See [**Sign**](#sign)
@@ -326,6 +334,7 @@ Pre-existing Signs attached to this Site will be re-associated to this Site.
 `occupation_end_date`|When the Site should no longer be present. (Date in format `YYYY-MM-DD`)
 `address`|Site address
 `notes`|Additional notes (String)
+`entrances`<br><span class="label">Optional</span>|List of entrances along the path from Right Sign to Left sign (Array of Strings)
 `source`|Free form field to identify unique source data such as engineer's name or gang name (String)
 `active`|Site's active value (Boolean)
 `latitude`|Latitude mid-point calculated using sign 1 and sign 2. Null if less than 2 signs. (Float)
