@@ -185,7 +185,7 @@
 
 <h2 id="get-site">Get Site</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.sight-line.uk/sites/</span><span class="nv">$site_uuid</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span> 
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="w">    </span><span class="p">{</span><span class="w">
         </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b07e9578-24e5-47de-8c56-ed82508f9ed2"</span><span class="p">,</span><span class="w">
@@ -258,12 +258,12 @@
     <span class="s2">"layout=TFIR"</span> <span class="se">\</span>
     <span class="s2">"occupation_end_date=2016-08-19"</span> <span class="se">\</span>
     <span class="s2">"notes=Faulty lighting"</span> <span class="se">\</span>
-    <span class="s2">"entrances:='["</span>Vehicle access<span class="s2">", "</span>Boots<span class="s2">", "</span>McDonald<span class="s1">'s"]'</span><span class="s2">" </span><span class="se">\</span><span class="s2">
-    "</span><span class="nb">source</span><span class="o">=</span>streetworks<span class="s2">" </span><span class="se">\</span><span class="s2">
-    "</span><span class="nv">active</span><span class="o">=</span><span class="nb">true</span><span class="s2">" </span><span class="se">\</span><span class="s2">
-    "</span>first_sign:<span class="o">=</span><span class="s1">'{"device_id": 1, "major_id": 2, "minor_id": 1, "latitude": 51.5349945, "longitude": -0.0552559, "sign_type": "RIGHT"}'</span><span class="s2">" </span><span class="se">\</span><span class="s2">
-    "</span>second_sign:<span class="o">=</span><span class="s1">'{"device_id": 1, "major_id": 2, "minor_id": 2, "latitude": 51.5665781, "longitude": -0.1272192, "sign_type": "LEFT"}'</span><span class="s2">" 
-</span></code></pre>
+    <span class="s2">"entrances:='["</span>Vehicle access<span class="s2">", "</span>Boots<span class="s2">"]'"</span> <span class="se">\</span>
+    <span class="s2">"source=streetworks"</span> <span class="se">\</span>
+    <span class="s2">"active=true"</span> <span class="se">\</span>
+    <span class="s2">"first_sign:='{"</span>device_id<span class="s2">": 1, "</span>major_id<span class="s2">": 2, "</span>minor_id<span class="s2">": 1, "</span>latitude<span class="s2">": 51.5349945, "</span>longitude<span class="s2">": -0.0552559, "</span>sign_type<span class="s2">": "</span>RIGHT<span class="s2">"}'"</span> <span class="se">\</span>
+    <span class="s2">"second_sign:='{"</span>device_id<span class="s2">": 1, "</span>major_id<span class="s2">": 2, "</span>minor_id<span class="s2">": 2, "</span>latitude<span class="s2">": 51.5665781, "</span>longitude<span class="s2">": -0.1272192, "</span>sign_type<span class="s2">": "</span>LEFT<span class="s2">"}'"</span>
+</code></pre>
 <pre class="highlight json"><code><span class="w">    </span><span class="p">{</span><span class="w">
         </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b07e9578-24e5-47de-8c56-ed82508f9ed2"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"first_sign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -453,7 +453,7 @@
 
 <h2 id="update-site">Update Site</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>http --form POST <span class="s2">"https://api.sight-line.uk/sites/</span><span class="nv">$site_uuid</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span> 
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span>
 
 </code></pre>
 <pre class="highlight json"><code><span class="w">    </span><span class="p">{</span><span class="w">
