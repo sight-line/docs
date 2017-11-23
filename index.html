@@ -762,7 +762,7 @@ The first value of each item is the <code class="prettyprint">API value</code> a
 
 <h2 id="get-a-sign">Get a Sign</h2>
 <pre class="highlight shell"><code><span class="gp">$ </span>http <span class="s2">"https://api.sight-line.uk/sites/sign/</span><span class="nv">$sign_uuid</span><span class="s2">"</span> <span class="se">\</span>
-    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span>  
+    <span class="s2">"Authorization: Token </span><span class="nv">$auth_token</span><span class="s2">"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1cbf7316-6ed3-4cbe-a9d7-27a7c9b04e66"</span><span class="p">,</span><span class="w">
@@ -801,7 +801,7 @@ The first value of each item is the <code class="prettyprint">API value</code> a
     <span class="s2">"minor_id=1"</span> <span class="se">\</span>
     <span class="s2">"latitude=51.5347709"</span> <span class="se">\</span>
     <span class="s2">"longitude=-0.1440306"</span> <span class="se">\</span>
-    <span class="s2">"sign_type=LEFT"</span> 
+    <span class="s2">"sign_type=LEFT"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e01c6991-32ab-4b84-850b-9cca9d6f1490"</span><span class="p">,</span><span class="w">
@@ -908,7 +908,7 @@ The first value of each item is the <code class="prettyprint">API value</code> a
     <span class="s2">"minor_id=1"</span> <span class="se">\</span>
     <span class="s2">"latitude=51.5347709"</span> <span class="se">\</span>
     <span class="s2">"longitude=-0.1440306"</span> <span class="se">\</span>
-    <span class="s2">"sign_type=LEFT"</span> 
+    <span class="s2">"sign_type=LEFT"</span>
 </code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e01c6991-32ab-4b84-850b-9cca9d6f1490"</span><span class="p">,</span><span class="w">
@@ -1055,12 +1055,18 @@ The first value of each item is the <code class="prettyprint">API value</code> a
     </span><span class="p">[</span><span class="w">
         </span><span class="s2">"ADVANCED"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"Advanced"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"BLANK"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Blank"</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
 <p>Returns a list of Sign Type choices to use when creating/updating a Sign.
 The first value of each item is the <code class="prettyprint">API value</code> and the second is the <code class="prettyprint">Display value</code>.</p>
+
+<p><code class="prettyprint">BLANK</code> signs do not require Layout or Length values. They act as simple information points.</p>
 
       </div>
       <div class="dark-box">
