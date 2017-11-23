@@ -229,4 +229,4 @@ $ http "https://api.sight-line.uk/sites/type-choices/" \
 Returns a list of Sign Type choices to use when creating/updating a Sign.
 The first value of each item is the `API value` and the second is the `Display value`.
 
-`BLANK` signs do not require Layout or Length values. They act as simple information points.
+`BLANK` signs do not require `Layout` or `Length` values. They act as simple information points.
