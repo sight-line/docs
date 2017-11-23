@@ -40,7 +40,7 @@ Returns list of Signs you own.
 
 ```shell
 $ http "https://api.sight-line.uk/sites/sign/$sign_uuid" \
-    "Authorization: Token $auth_token"  
+    "Authorization: Token $auth_token"
 ```
 ```json
 {
@@ -74,7 +74,7 @@ $ http --form POST "https://api.sight-line.uk/sites/sign/" \
     "minor_id=1" \
     "latitude=51.5347709" \
     "longitude=-0.1440306" \
-    "sign_type=LEFT" 
+    "sign_type=LEFT"
 ```
 ```json
 {
@@ -130,7 +130,7 @@ $ http --form PATCH "https://api.sight-line.uk/sites/sign/$sign_uuid" \
     "minor_id=1" \
     "latitude=51.5347709" \
     "longitude=-0.1440306" \
-    "sign_type=LEFT" 
+    "sign_type=LEFT"
 ```
 ```json
 {
@@ -218,9 +218,15 @@ $ http "https://api.sight-line.uk/sites/type-choices/" \
     [
         "ADVANCED",
         "Advanced"
+    ],
+    [
+        "BLANK",
+        "Blank"
     ]
 ]
 ```
 
 Returns a list of Sign Type choices to use when creating/updating a Sign.
 The first value of each item is the `API value` and the second is the `Display value`.
+
+`BLANK` signs do not require Layout or Length values. They act as simple information points.
